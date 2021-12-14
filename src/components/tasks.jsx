@@ -1,7 +1,14 @@
+import {FaTrash, FaCheck} from 'react-icons/fa';
 
-const Todos = props => {
 
-    const tasks = props.tasks.map((value, index) => {
+
+const Todos = ({ tasks, onDelete }) => {
+    
+    
+
+    
+
+    const task = tasks.map((value, index) => {
 
         return( 
 
@@ -21,8 +28,8 @@ const Todos = props => {
                             <div className="widget-subheading"><i>By {value.author}</i></div>
                         </div>
                         <div className="widget-content-right"> 
-                            <button className="border-0 btn-transition btn btn-outline-success"> <i className="fa fa-check"></i></button> 
-                            <button className="border-0 btn-transition btn  btn-danger" onClick={() => props.deleteTask(value.id)}> <i className="fa fa-trash" ></i>Delete </button> 
+                            <button className="border-0 btn-transition btn btn-outline-success"> < FaCheck/></button> 
+                            <button className="border-0 btn-transition btn  btn-outline-danger" onClick={() => onDelete(value.id)}> <FaTrash /> </button> 
                         </div>
                     </div>
                 </div>
@@ -32,18 +39,18 @@ const Todos = props => {
         
     })
 
-    return tasks
+    return task
 }
 
 const Tasks = (props) => {
-        const {tasks , deleteTask} = props;
+        const {tasks , onDelete} = props
         return (
             <div className="scroll-area-sm card-body">
                 <perfect-scrollbar className="ps-show-limits">
                     <div style={{ position: 'static' }} className="ps ps--active-y">
                         <div className="ps-content">
                             <ul className=" list-group list-group-flush">
-                                {tasks.length > 0 ? <Todos tasks={tasks} deleteTask={deleteTask} /> : 'take Your self Out You free'}
+                                {tasks.length > 0 ? <Todos tasks={tasks} onDelete={onDelete} /> : 'take Your self Out You free'}
                             </ul>
                         </div>
                     </div>

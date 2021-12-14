@@ -1,60 +1,97 @@
-const ModalForm = () => {
+import {Button ,Modal, Form} from 'react-bootstrap';
+import { useState } from 'react';
 
+
+ const AddTask = ({ onAdd }) =>
+{
+  
+    const [show, setShow] = useState(false);
+  
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    const [task ,  setTask] = useState('')
+    const [priority , setPriority] = useState('')
+    const [author, setAuthor] = useState('')
+
+    // const handleChange = (event) => {
+    //     setTask(event.target.value)
+    //     setPriority(event.target.value)
+    //     setAuthor(event.target.value)
+    // }
+
+    const handleSubmit = (event) => {
+      event.preventDefault()
+
+      if(task === ''){
+        alert('All input fields needed')
+        return false
+      }
+
+      onAdd({task,priority,author})
+
+      setTask('')
+      setAuthor('')
+      setPriority('')
+      handleClose()
+    }
+  
     return (
-        <form action="" method="post" id="updatesubject" enctype="multipart/form-data">
-            <div className="modal-body">
-                <h4>Make your changes</h4>
-                <input type="hidden" id="id" name="id" className="idUpdate"/>
+      <>
+        <Button variant="primary" onClick={handleShow}>
+          Add task
+        </Button>
+        <Form >
+          <Modal show={show} onHide={handleClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>Add Task</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                      <div className="col  form-group has-feedback">
+                          <input 
+                            type="text" 
+                            className="form-control has-feedback-left" 
+                            id="Task" 
+                            name="Task" 
+                            placeholder="Task"
+                            value ={task}
+                            onChange={(e) => setTask(e.target.value)}
+                             />
+                          <span className="text-danger error-text name_error" ></span>
+                      </div>	
+                    
+                      <div className="col  form-group has-feedback">
+                          <input name="Author" id="Author" value={author} className="form-control has-feedback-left" onChange={(e) => setAuthor(e.target.value)}/>
+                          <span className="text-danger error-text name_error" ></span>
+                      </div>
 
-                <div className="col  form-group has-feedback">
-                    <input type="text" className="form-control has-feedback-left" id="edit_name" name="edit_name" placeholder="Name of college" />
-                    <span className="text-danger error-text name_error" ></span>
-                    <span className="fa fa-thumb-tack form-control-feedback left" aria-hidden="true"></span>
-                </div>	
+                      <div className="col form-group has-feedback">
+                          <select className="form-control has-feedback-left" id="Priority" name="priority" value={priority} onChange={(e) => setPriority(e.target.value)}>
+                              <option value="">Select</option>
+                              <option value="High">High</option>
+                              <option value="Meduim">Meduim</option>
+                          </select>
+                              <span className="text-danger error-text fee_error" >
+                                  <strong></strong>
+                              </span>
+                      </div>
                 
-                <div className="col  form-group has-feedback">
-                    <input name="edit_programme" id="edit_programme" className="form-control has-feedback-left"/>
-                    <span className="text-danger error-text name_error" ></span>
-                    <span className="fa fa-thumb-tack form-control-feedback left" aria-hidden="true"></span>
-                </div>
-
-                <div className="col form-group has-feedback">
-                    <select type="text" className="form-control has-feedback-left" id="edit_teacher" name="edit_teacher" placeholder="Subject teacher"  required>
-                        <option value="">Select</option>
-                    </select>
-                        <span className="text-danger error-text fee_error" >
-                            <strong></strong>
-                        </span>
-                    <span className="fa fa-thumb-tack form-control-feedback left" aria-hidden="true"></span>
-                </div>
-
-            </div>
-            <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" className="btn btn-primary" id="updateform">Save changes</button>
-            </div>
-        </form>
-    )
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="danger" onClick={handleClose}>
+                Close
+              </Button>
+              <Button type="submit" variant="dark" onClick={handleSubmit}>
+                Save Changes
+              </Button>
+            </Modal.Footer>
+          </Modal>
+        </Form>
+      </>
+    );
+  
 }
 
 
-
-const Modal = () => {
-    return (
-
-        <div className="modal fade bs-example-modal-sm" id="updatesubjectmodal" tabindex="-1" role="dialog" aria-hidden="true">
-            <div className="modal-dialog modal-sm">
-                <div className="modal-content">
-                    <div className="modal-header">
-                        <h4 className="modal-title" id="myModalLabel2">Add Task</h4>
-                        <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                    </div>
-                    <ModalForm />
-                </div>
-            </div>
-        </div>
-    
-    )
-}
-
-export default Modal
+  export default AddTask  
+  
