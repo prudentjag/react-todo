@@ -12,8 +12,18 @@ const Todo = () =>  {
             id:2,
             author : 'Office admin',
             priority : 'Meduim'
+        },
+        {
+            id:1,
+            author : 'Office bursar',
+            priority : 'high'
+        },
+        {
+            id:3,
+            author : 'Office boss',
+            priority : 'Meduim'
         }
-        
+
     ])
 
     
