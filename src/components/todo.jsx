@@ -8,6 +8,11 @@ import Footer from './footer'
 const Todo = () =>  {
     
     const [tasks , setTask] = useState([
+        {
+            id:2,
+            author : 'Office admin',
+            priority : 'Meduim'
+        }
         
     ])
 
